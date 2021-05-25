@@ -1,0 +1,15 @@
+# action.yml
+name: 'Crystal ball'
+description: 'Action to react on empty or not well prepared issue'
+inputs:
+  issueNum:  # id of input
+    description: 'number of issue to check'
+    required: true
+outputs:
+  fortuneTeller: # id of output
+    description: 'Was fortune teller required'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.issueNum }}
