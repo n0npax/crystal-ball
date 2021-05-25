@@ -1,5 +1,5 @@
-#!/bin/sh -l
+#!/usr/bin/env sh
 
-echo "Hello $1"
-time=$(date)
-echo "::set-output name=time::$time"
+echo "Hello $1 $2"q
+fortuneTeller=false
+echo "::set-output name=fortuneTeller::$fortuneTeller"
