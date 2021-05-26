@@ -6,9 +6,22 @@ on:
   release:
     types: [published]
 jobs:
-  image:
+  build:
+    name: Build image
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build (push)
+        uses: docker/build-push-action@v2
+        with:
+          push: false
+  build-and-push:
     name: Build and push image
     runs-on: ubuntu-latest
+    needs: build
     permissions:
       packages: write
       contents: read
@@ -29,8 +42,3 @@ jobs:
             docker.pkg.github.com/${{ github.repository }}/crystal-ball:${{ github.ref }}
             docker.pkg.github.com/${{ github.repository }}/crystal-ball:latest
             docker.pkg.github.com/${{ github.repository }}/crystal-ball:${{ github.sha }}
-      - name: Build (push)
-        if: ${{ github.event_name != 'release'}}
-        uses: docker/build-push-action@v2
-        with:
-          push: false

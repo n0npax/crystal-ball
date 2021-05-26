@@ -11,9 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v1.0
-      - name: test
+      - name: get
         run: |
           pub get
+      - name: test
+        run: |
           dart test $(find test -type f) -r expanded
   publish:
     name: publish
@@ -22,7 +24,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v1.0
-      - name: test
+      - name: get
         run: |
           pub get
+      - name: publish
+        run: |
           echo TODO
