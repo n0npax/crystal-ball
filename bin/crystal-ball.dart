@@ -75,11 +75,8 @@ class IssueCommand extends Command {
     );
   }
 
-  // [run] may also return a Future.
   @override
   void run() async {
-    // [argResults] is set before [run()] is called and contains the flags/options
-    // passed to this command.
     log.info(
         'processing issue num: ${argResults?[issueNumberOption]} repo: ${argResults?[repoNameOption]}/${argResults?[orgOption]}');
     var issue = Issue(
@@ -89,12 +86,10 @@ class IssueCommand extends Command {
     await issue.init();
     final failureReason = await isValidIssue(issue);
     print('::set-output name=commented::false');
-    if (failureReason != '') {
-      if (argResults![commentFlag]) {
-        await issue.comment(
-            ':crystal_ball: Crystal ball is not enough today :crystal_ball:,\n please update issue description.\n\nFailure reason:\n ${failureReason.join('\n')}');
-        print('::set-output name=commented::true');
-      }
+    if (failureReason.isEmpty && argResults![commentFlag]) {
+      await issue.comment(
+          ':crystal_ball: Crystal ball is not enough today :crystal_ball:,\n please update issue description.\n\nFailure reason:\n ${failureReason.join('\n')}');
+      print('::set-output name=commented::true');
     }
   }
 }
