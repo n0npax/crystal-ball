@@ -5,22 +5,18 @@ on:
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
-    name: test job
+    name: Fortune teller
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Hello world action step
-        #if: ${{ !github.event.issue.pull_request }}
+      - name: Crystal Ball
+        if: ${{ !github.event.issue.pull_request }}
         uses: ./ 
-        id: test
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REXEXP_NO_EMPTY_DESC: 'description:?\s*\Z'
           REGEXP_AT_LEAST_10_WORDS: '(\w+\s+){0,10}'
         with:
-          org: n0npax
+          org: ${{ github.repository_owner }}
           repoName: crystal-ball
           issueNum: "${{ github.event.issue.number }}"
-      # Use the output from the `hello` step
-      #- name: Get the output time
-      #  run: echo "The time was ${{ steps.hello.outputs.time }}"
