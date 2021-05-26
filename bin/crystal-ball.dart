@@ -86,7 +86,7 @@ class IssueCommand extends Command {
     await issue.init();
     final failureReason = await isValidIssue(issue);
     print('::set-output name=commented::false');
-    if (failureReason.isEmpty && argResults![commentFlag]) {
+    if (failureReason.isNotEmpty && argResults![commentFlag]) {
       await issue.comment(
           ':crystal_ball: Crystal ball is not enough today :crystal_ball:,\n please update issue description.\n\nFailure reason:\n ${failureReason.join('\n')}');
       print('::set-output name=commented::true');
