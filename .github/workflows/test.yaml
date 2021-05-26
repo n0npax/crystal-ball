@@ -1,7 +1,7 @@
+name: crystall ball (from Dockerfile)
 on:
   issues:
     types: [opened, edited]
-
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
