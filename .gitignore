@@ -8,3 +8,4 @@ build/
 # Directory created by dartdoc
 doc/api/
 .github_token
+bin/crystal-ball.exe
