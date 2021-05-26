@@ -1,8 +1,4 @@
 on:
-  push: {}
-  pull_request: {}
-  issue_comment:
-    types: [created, edited]
   issues:
     types: [opened, edited]
 
