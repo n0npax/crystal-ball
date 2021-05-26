@@ -92,7 +92,7 @@ class IssueCommand extends Command {
     if (failureReason != '') {
       if (argResults![commentFlag]) {
         await issue.comment(
-            ':crystal_ball: Crystal ball is not enough today :crystal_ball:,\n please update issue description.\n\nFailure reason:\n $failureReason');
+            ':crystal_ball: Crystal ball is not enough today :crystal_ball:,\n please update issue description.\n\nFailure reason:\n ${failureReason.join('\n')}');
         print('::set-output name=commented::true');
       }
     }

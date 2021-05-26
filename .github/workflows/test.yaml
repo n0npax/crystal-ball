@@ -19,8 +19,8 @@ jobs:
         id: test
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REXEXP_NO_EMPTY_DESC: "description:?\s*\Z"
-          REGEXP_AT_LEAST_10_WORDS: "(\w+\s+){0,10}"
+          REXEXP_NO_EMPTY_DESC: 'description:?\s*\Z'
+          REGEXP_AT_LEAST_10_WORDS: '(\w+\s+){0,10}'
         with:
           org: n0npax
           repoName: crystal-ball
