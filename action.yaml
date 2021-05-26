@@ -17,8 +17,8 @@ inputs:
     default: false
     required: false
 outputs:
-  fortuneTeller:
-    description: 'Was fortune teller required'
+  commented:
+    description: 'Was comment added'
 runs:
   using: 'docker'
   image: 'Dockerfile'

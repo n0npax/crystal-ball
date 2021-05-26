@@ -1,11 +1,14 @@
 import 'package:github/github.dart' as gh;
+import 'package:logging/logging.dart';
 
 final github = gh.GitHub(auth: gh.findAuthenticationFromEnvironment());
+final log = Logger('issue');
 
 class Issue extends gh.Issue {
   final String repoName, org;
   @override
   final int id;
+  final slug;
 
   gh.Issue? _issue;
 
@@ -15,11 +18,17 @@ class Issue extends gh.Issue {
     required this.org,
     required this.repoName,
     required number,
-  }) : id = int.parse(number);
+  })   : id = int.parse(number),
+        slug = gh.RepositorySlug(org, repoName);
 
   Future<void> init() async {
     final _issService = gh.IssuesService(github);
-    _issue = await _issService.get(gh.RepositorySlug(org, repoName), id);
+    try {
+      _issue = await _issService.get(slug, id);
+    } catch (e) {
+      log.shout(e);
+      rethrow;
+    }
 
     url = _issue!.url;
     htmlUrl = _issue!.htmlUrl;
@@ -37,5 +46,17 @@ class Issue extends gh.Issue {
     updatedAt = _issue!.updatedAt;
     body = _issue!.body;
     closedBy = _issue!.closedBy;
+    log.fine('Issue data was synced');
+  }
+
+  Future<void> comment(String body) async {
+    final _issService = gh.IssuesService(github);
+    try {
+      await _issService.createComment(slug, id, body);
+    } catch (e) {
+      log.shout(e);
+      rethrow;
+    }
+    log.fine('Comment was added');
   }
 }

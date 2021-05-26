@@ -17,6 +17,8 @@ jobs:
         #if: ${{ !github.event.issue.pull_request }}
         uses: ./ 
         id: test
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           org: n0npax
           repoName: crystal-ball

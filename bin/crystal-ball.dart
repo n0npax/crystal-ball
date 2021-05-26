@@ -5,10 +5,11 @@ import 'package:crystal_ball/issue.dart';
 import 'package:crystal_ball/check.dart';
 import 'package:logging/logging.dart';
 
-const regex = 'regex';
-const issueNumber = 'issueNumber';
-const org = 'organization';
-const repoName = 'repository';
+const regexOption = 'regex';
+const issueNumberOption = 'issueNumber';
+const orgOption = 'organization';
+const repoNameOption = 'repository';
+const commentFlag = 'comment';
 
 final log = Logger('CLI');
 
@@ -40,7 +41,7 @@ class IssueCommand extends Command {
 
   IssueCommand() {
     argParser.addOption(
-      issueNumber,
+      issueNumberOption,
       help: '(required) github issue number',
       aliases: ['num', 'number'],
       abbr: 'n',
@@ -49,7 +50,7 @@ class IssueCommand extends Command {
       callback: (s) => requiredNotEmptyArg(s),
     );
     argParser.addOption(
-      org,
+      orgOption,
       help: '(required) organization or username',
       aliases: ['org', 'username', 'user'],
       abbr: 'o',
@@ -57,7 +58,7 @@ class IssueCommand extends Command {
       callback: (s) => requiredNotEmptyArg(s),
     );
     argParser.addOption(
-      repoName,
+      repoNameOption,
       help: '(required) repository name',
       aliases: ['repo'],
       abbr: 'r',
@@ -67,11 +68,18 @@ class IssueCommand extends Command {
 
     // regexp
     argParser.addMultiOption(
-      regex,
+      regexOption,
       help: 'regular expresions to trigger crystal ball comment',
       aliases: ['regexp'],
       abbr: 'x',
       valueHelp: 'regural expression',
+    );
+    // comment
+    argParser.addFlag(
+      commentFlag,
+      abbr: 'c',
+      defaultsTo: true,
+      negatable: true,
     );
   }
 
@@ -81,12 +89,19 @@ class IssueCommand extends Command {
     // [argResults] is set before [run()] is called and contains the flags/options
     // passed to this command.
     log.info(
-        'processing issue num: ${argResults?[issueNumber]} repo: ${argResults?[repoName]}/${argResults?[org]}');
+        'processing issue num: ${argResults?[issueNumberOption]} repo: ${argResults?[repoNameOption]}/${argResults?[orgOption]}');
     var issue = Issue(
-        org: argResults![org],
-        repoName: argResults![repoName],
-        number: argResults![issueNumber]);
+        org: argResults![orgOption],
+        repoName: argResults![repoNameOption],
+        number: argResults![issueNumberOption]);
     await issue.init();
     final valid = await isValidIssue(issue);
+    if (!valid) {
+      if (argResults![commentFlag]) {
+        await issue.comment(
+            ':crystal_ball: is not enough today, please update issue description');
+      }
+    }
+    print('::set-output name=commented::${!valid}');
   }
 }
