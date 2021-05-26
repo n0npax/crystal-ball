@@ -66,14 +66,6 @@ class IssueCommand extends Command {
       callback: (s) => requiredNotEmptyArg(s),
     );
 
-    // regexp
-    argParser.addMultiOption(
-      regexOption,
-      help: 'regular expresions to trigger crystal ball comment',
-      aliases: ['regexp'],
-      abbr: 'x',
-      valueHelp: 'regural expression',
-    );
     // comment
     argParser.addFlag(
       commentFlag,
@@ -95,13 +87,14 @@ class IssueCommand extends Command {
         repoName: argResults![repoNameOption],
         number: argResults![issueNumberOption]);
     await issue.init();
-    final valid = await isValidIssue(issue);
-    if (!valid) {
+    final failureReason = await isValidIssue(issue);
+    print('::set-output name=commented::false');
+    if (failureReason != '') {
       if (argResults![commentFlag]) {
         await issue.comment(
-            ':crystal_ball: is not enough today, please update issue description');
+            ':crystal_ball: Crystal ball is not enough today :crystal_ball:,\n please update issue description.\n\nFailure reason:\n $failureReason');
+        print('::set-output name=commented::true');
       }
     }
-    print('::set-output name=commented::${!valid}');
   }
 }

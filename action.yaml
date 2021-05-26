@@ -11,11 +11,6 @@ inputs:
     required: true
   repoName:
     description: 'repository name'
-    required: true
-  regex:
-    description: 'regular expression '
-    default: false
-    required: false
 outputs:
   commented:
     description: 'Was comment added'
@@ -26,4 +21,3 @@ runs:
     - ${{ inputs.issueNum }}
     - ${{ inputs.org }}
     - ${{ inputs.repoName }}
-    - ${{ inputs.regex }}
