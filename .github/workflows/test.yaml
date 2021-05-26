@@ -18,6 +18,8 @@ jobs:
         uses: ./ 
         id: test
         with:
+          org: n0npax
+          repoName: crystal-ball
           issueNum: "${{ github.event.issue.number }}"
       # Use the output from the `hello` step
       #- name: Get the output time

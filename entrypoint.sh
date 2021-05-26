@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 
-echo "Hello $1 $2"q
+echo "Num $1"
+echo "regex $2"
 fortuneTeller=false
 echo "::set-output name=fortuneTeller::$fortuneTeller"

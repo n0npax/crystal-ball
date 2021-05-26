@@ -1,22 +1,29 @@
-# action.yml
 name: 'Crystal ball'
 description: 'Action to react on empty or not well prepared issue'
 author: n0npax
 branding: octagon
 inputs:
-  issueNum:  # id of input
+  issueNum:
     description: 'number of issue to check'
     required: true
-  allowEmptyPrDescription:  # id of input
-    description: 'is empty PR description acceptable'
+  org:
+    description: 'organization or github username'
+    required: true
+  repoName:
+    description: 'repository name'
+    required: true
+  regex:
+    description: 'regular expression '
     default: false
     required: false
 outputs:
-  fortuneTeller: # id of output
+  fortuneTeller:
     description: 'Was fortune teller required'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.allowEmptyPrDescription }}
     - ${{ inputs.issueNum }}
+    - ${{ inputs.org }}
+    - ${{ inputs.repoName }}
+    - ${{ inputs.regex }}
