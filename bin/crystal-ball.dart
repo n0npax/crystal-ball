@@ -16,7 +16,7 @@ final log = Logger('CLI');
 final defaultCommentMessage =
     ':crystal_ball::crystal_ball::crystal_ball::crystal_ball:'
     ':crystal_ball::crystal_ball::crystal_ball::crystal_ball::crystal_ball:'
-    '\nSeems like issue doesn\'t met all standards\n---\n'
+    '\nSeems like issue doesn\'t meet all standards\n---\n'
     'Please update issue description.';
 final commentMessage = () {
   final envValue = Platform.environment['COMMENT_MSG'];
