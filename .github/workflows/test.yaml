@@ -20,3 +20,4 @@ jobs:
           org: ${{ github.repository_owner }}
           repoName: crystal-ball
           issueNum: "${{ github.event.issue.number }}"
+          labels: "foo,bar,baz,qux"

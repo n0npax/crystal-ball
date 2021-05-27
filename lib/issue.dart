@@ -30,22 +30,8 @@ class Issue extends gh.Issue {
       rethrow;
     }
 
-    url = _issue!.url;
-    htmlUrl = _issue!.htmlUrl;
-    number = _issue!.number;
-    state = _issue!.state;
-    title = _issue!.title;
-    user = _issue!.user;
-    labels = _issue!.labels;
-    assignee = _issue!.assignee;
-    milestone = _issue!.milestone;
-    commentsCount = _issue!.commentsCount;
     pullRequest = _issue!.pullRequest;
-    createdAt = _issue!.createdAt;
-    closedAt = _issue!.closedAt;
-    updatedAt = _issue!.updatedAt;
     body = _issue!.body;
-    closedBy = _issue!.closedBy;
     log.fine('Issue data was synced');
   }
 
@@ -53,6 +39,32 @@ class Issue extends gh.Issue {
     final _issService = gh.IssuesService(github);
     try {
       await _issService.createComment(slug, id, body);
+    } catch (e) {
+      log.shout(e);
+      rethrow;
+    }
+    log.fine('Label was added');
+  }
+
+  Future<void> addLabels(List<String> labels) async {
+    final _issService = gh.IssuesService(github);
+    try {
+      await _issService.addLabelsToIssue(slug, id, labels);
+    } catch (e) {
+      log.shout(e);
+      rethrow;
+    }
+    log.fine('Comment was added');
+  }
+
+  Future<void> rmLabels(List<String> labels) async {
+    final _issService = gh.IssuesService(github);
+    try {
+      labels.forEach((element) {
+        _issService
+            .removeLabelForIssue(slug, id, element)
+            .then((value) => null);
+      });
     } catch (e) {
       log.shout(e);
       rethrow;

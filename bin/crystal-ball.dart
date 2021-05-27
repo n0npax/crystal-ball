@@ -10,6 +10,7 @@ const issueNumberOption = 'issueNumber';
 const orgOption = 'organization';
 const repoNameOption = 'repository';
 const commentFlag = 'comment';
+const labelOption = 'label';
 
 final log = Logger('CLI');
 
@@ -66,12 +67,21 @@ class IssueCommand extends Command {
       callback: (s) => requiredNotEmptyArg(s),
     );
 
-    // comment
+    // actions
     argParser.addFlag(
       commentFlag,
       abbr: 'c',
       defaultsTo: true,
       negatable: true,
+    );
+
+    argParser.addMultiOption(
+      labelOption,
+      help: 'label to put on issue',
+      aliases: ['lab'],
+      abbr: 'l',
+      defaultsTo: [],
+      valueHelp: 'label to put on comment',
     );
   }
 
@@ -85,12 +95,19 @@ class IssueCommand extends Command {
         number: argResults![issueNumberOption]);
     await issue.init();
     final failureReason = await isValidIssue(issue);
-    if (failureReason.isNotEmpty && argResults![commentFlag]) {
-      await issue.comment(
-          ':crystal_ball: Crystal ball is not enough today :crystal_ball:,\n---\n Please update issue description. \n\nFailure reason:\n ${failureReason.join('\n')}');
-      print('::set-output name=commented::true');
+    if (failureReason.isNotEmpty) {
+      if (!argResults![labelOption].isEmpty) {
+        await issue.addLabels(argResults![labelOption]);
+      }
+      if (argResults![commentFlag]) {
+        await issue.comment(
+            ':crystal_ball: Crystal ball is not enough today :crystal_ball:,\n---\n Please update issue description. \n\nFailure reason:\n ${failureReason.join('\n')}');
+        print('::set-output name=commented::true');
+      } else {
+        print('::set-output name=commented::false');
+      }
     } else {
-      print('::set-output name=commented::false');
+      await issue.rmLabels(argResults![labelOption]);
     }
   }
 }

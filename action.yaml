@@ -11,6 +11,9 @@ inputs:
     required: true
   repoName:
     description: 'repository name'
+  labels:
+    description: 'labels separated by comma. For example "foo,bar,baz"'
+    default: "invalid description"
 outputs:
   commented:
     description: 'Was comment added'
@@ -21,3 +24,4 @@ runs:
     - ${{ inputs.issueNum }}
     - ${{ inputs.org }}
     - ${{ inputs.repoName }}
+    - ${{ inputs.labels }}
