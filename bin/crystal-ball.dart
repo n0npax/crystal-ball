@@ -14,10 +14,13 @@ const labelOption = 'label';
 
 final log = Logger('CLI');
 final defaultCommentMessage =
-    ':crystal_ball::crystal_ball::crystal_ball:\nSeems like issue doesn\'t met all standards\n---\nPlease update issue description.';
+    ':crystal_ball::crystal_ball::crystal_ball::crystal_ball:'
+    ':crystal_ball::crystal_ball::crystal_ball::crystal_ball::crystal_ball:'
+    '\nSeems like issue doesn\'t met all standards\n---\n'
+    'Please update issue description.';
 final commentMessage = () {
   final envValue = Platform.environment['COMMENT_MSG'];
-  if (envValue!.isEmpty) {
+  if (envValue?.isEmpty ?? true) {
     return defaultCommentMessage;
   }
   return envValue;
@@ -96,8 +99,8 @@ class IssueCommand extends Command {
 
   @override
   void run() async {
-    log.info(
-        'processing issue num: ${argResults?[issueNumberOption]} repo: ${argResults?[repoNameOption]}/${argResults?[orgOption]}');
+    log.info('processing issue num: ${argResults?[issueNumberOption]}'
+        ' repo: ${argResults?[repoNameOption]}/${argResults?[orgOption]}');
     var issue = Issue(
         org: argResults![orgOption],
         repoName: argResults![repoNameOption],
@@ -110,7 +113,7 @@ class IssueCommand extends Command {
       }
       if (argResults![commentFlag]) {
         await issue.comment(
-            '$commentMessage \n\nFailure reason:\n ${failureReason.join('\n')}');
+            '$commentMessage \n\nFailure reason:\n${failureReason.join('\n')}');
         print('::set-output name=commented::true');
       } else {
         print('::set-output name=commented::false');
