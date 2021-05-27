@@ -13,8 +13,23 @@ The `Crystal Ball` action will check issue description and respond to it base on
 
 ## Example
 
+How action may look like:
+
 ![alt text](assets/example.png "example")
 
+## Usage
+
+### Action
+
+```yaml
+
+```
+
+### Parameters
+
+```yaml
+
+```
 
 ## LICEMSE
 

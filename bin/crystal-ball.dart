@@ -13,6 +13,15 @@ const commentFlag = 'comment';
 const labelOption = 'label';
 
 final log = Logger('CLI');
+final defaultCommentMessage =
+    ':crystal_ball::crystal_ball::crystal_ball:\nSeems like issue doesn\'t met all standards\n---\nPlease update issue description.';
+final commentMessage = () {
+  final envValue = Platform.environment['COMMENT_MSG'];
+  if (envValue!.isEmpty) {
+    return defaultCommentMessage;
+  }
+  return envValue;
+}();
 
 void main(List<String> args) {
   Logger.root.level = Level.ALL; // defaults to Level.INFO
@@ -101,7 +110,7 @@ class IssueCommand extends Command {
       }
       if (argResults![commentFlag]) {
         await issue.comment(
-            ':crystal_ball: Crystal ball is not enough today :crystal_ball:,\n---\n Please update issue description. \n\nFailure reason:\n ${failureReason.join('\n')}');
+            '$commentMessage \n\nFailure reason:\n ${failureReason.join('\n')}');
         print('::set-output name=commented::true');
       } else {
         print('::set-output name=commented::false');
