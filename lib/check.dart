@@ -10,7 +10,7 @@ Future<List<String>> isValidIssue(Issue issue) async {
   Platform.environment.forEach((key, value) {
     if (key.startsWith('CRYSTAL_MATCH_REGEX')) {
       final exp = RegExp(value, caseSensitive: false, multiLine: true);
-      if (exp.hasMatch(issue.body)) {
+      if (!exp.hasMatch(issue.body)) {
         final regexpReason = '* RegExp `$value` has no match';
         log.info(regexpReason);
         reasons.add(regexpReason);
@@ -18,7 +18,7 @@ Future<List<String>> isValidIssue(Issue issue) async {
     }
     if (key.startsWith('CRYSTAL_NOMATCH_REGEX')) {
       final exp = RegExp(value, caseSensitive: false, multiLine: true);
-      if (!exp.hasMatch(issue.body)) {
+      if (exp.hasMatch(issue.body)) {
         final regexpReason = '* RegExp `$value` has match';
         log.info(regexpReason);
         reasons.add(regexpReason);
