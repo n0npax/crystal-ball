@@ -3,14 +3,13 @@
 ![action](https://github.com/n0npax/crystal-ball/actions/workflows/dart.yaml/badge.svg)
 ![action](https://github.com/n0npax/crystal-ball/actions/workflows/docker.yaml/badge.svg)
 
-
 # Crystal Ball
 
 Github action to react on dummy issues report.
 
-## Why?
+## Problem to solve
 
-More or less often we are expecting issues which are not actionable.
+From time to time we are expecting issues which are not actionable.
 
 Empty issue body is an example of unactionable issue.
 Simillarly if issue template with checklist is given but no field is selected, it's possible to consider an issue as not ready to be triaged.
