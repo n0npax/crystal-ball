@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/91e135550bf84f7e8686bb292a5a9193)](https://app.codacy.com/gh/n0npax/crystal-ball?utm_source=github.com&utm_medium=referral&utm_content=n0npax/crystal-ball&utm_campaign=Badge_Grade_Settings)
 [![License](https://img.shields.io/:license-mit-blue.svg)](https://badges.mit-license.org)
 [![GitHub issues](https://img.shields.io/github/issues/n0npax/crystal-ball.svg)](https://GitHub.com/n0npax/crystal-ball/issues/)
 ![action](https://github.com/n0npax/crystal-ball/actions/workflows/dart.yaml/badge.svg)
