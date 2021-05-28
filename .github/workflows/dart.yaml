@@ -1,4 +1,4 @@
-name: Dart CI/CD
+name: Dart CI
 on:
   push:
     branches:
@@ -29,4 +29,5 @@ jobs:
           pub get
       - name: publish
         run: |
-          echo TODO
+          echo "Not implemented as per"
+          echo "https://github.com/dart-lang/pub/issues/2227"
