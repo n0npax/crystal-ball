@@ -22,7 +22,7 @@ The `Crystal Ball` action will check issue description and respond to it base on
 
 ## Usage
 
-### Example
+### Action example
 
 ```yaml
 name: crystall ball
@@ -55,16 +55,16 @@ jobs:
 ### ENV variables
 
 Default comment message cen be changed by:
-```
+```yaml
 COMMENT_MSG: "comment message (above failure reason)
 ```
 Multiple regular expressions can be used to validate issue body. Any ENV variable starting with `CRYSTAL_{NO,}MATCH_REGEX` will be used. If match does/doesn't exists, issue is consider as invalid and crystal ball will comment.
-```
+```yaml
 CRYSTAL_NOMATCH_REGEX_FOO: '^foo$'
 CRYSTAL_MATCH_REGEX_BAR: 'bar{4}'
 ```
 Github token is required to perform actions.
-```
+```yaml
 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
