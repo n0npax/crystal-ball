@@ -87,13 +87,12 @@ class IssueCommand extends Command {
       negatable: true,
     );
 
-    argParser.addMultiOption(
+    argParser.addOption(
       labelOption,
-      help: 'label to put on issue',
+      help: 'labels to put on issue. Separated by comma',
       aliases: ['lab'],
       abbr: 'l',
-      defaultsTo: [],
-      valueHelp: 'label to put on comment',
+      valueHelp: 'example label,label2',
     );
   }
 
@@ -107,7 +106,7 @@ class IssueCommand extends Command {
         number: argResults![issueNumberOption]);
     await issue.init();
     final failureReason = await isValidIssue(issue);
-    final labels = argResults![labelOption];
+    final labels = argResults![labelOption].split(',');
     if (failureReason.isNotEmpty) {
       if (!labels.isEmpty) {
         await issue.addLabels(labels);

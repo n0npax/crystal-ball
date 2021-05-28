@@ -48,8 +48,8 @@ jobs:
         with:
           org: ${{ github.repository_owner }}
           repoName: crystal-ball
-          issueNum: "${{ github.event.issue.number }}"
-          labels: "invalid,crystall ball needed"
+          issueNum: ${{ github.event.issue.number }}
+          labels: invalid,crystall ball needed
 ```
 
 ### ENV variables
