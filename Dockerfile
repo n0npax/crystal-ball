@@ -1,4 +1,4 @@
-FROM google/dart as builder
+FROM google/dart:latest as builder
 LABEL author="Marcin <n0npax> Niemira"
 RUN mkdir /app
 COPY . /app

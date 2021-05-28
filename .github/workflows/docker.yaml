@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+  pull_request: {}
   release:
     types: [published]
 jobs:
@@ -14,7 +15,7 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v2
-      - name: Build (push)
+      - name: Build
         uses: docker/build-push-action@v2
         with:
           push: false

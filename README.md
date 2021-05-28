@@ -3,10 +3,11 @@
 [![GitHub issues](https://img.shields.io/github/issues/n0npax/crystal-ball.svg)](https://GitHub.com/n0npax/crystal-ball/issues/)
 ![action](https://github.com/n0npax/crystal-ball/actions/workflows/dart.yaml/badge.svg)
 ![action](https://github.com/n0npax/crystal-ball/actions/workflows/docker.yaml/badge.svg)
+![pub](https://img.shields.io/pub/v/crystal_ball)
 
 # Crystal Ball
 
-Github action to react on dummy issues report.
+Crystal ball is an easy app to check if github issue can be consider as invalid or dummy. It's also a `GitHub` action which simplify usage.
 
 ## Problem to solve
 
@@ -17,29 +18,19 @@ Simillarly if issue template with checklist is given but no field is selected, i
 
 The `Crystal Ball` action will check issue description and respond to it base on predefined checks or customer provided regular expressions
 
-## Example
-
-How action may look like:
-
-![alt text](assets/example.png "example")
+---
 
 ## Usage
 
-### Action
+### Example
 
 ```yaml
-
-```
-
-### Parameters
-
-```yaml
-name: crystall ball (from Dockerfile)
+name: crystall ball
 on:
   issues:
     types: [opened, edited]
 jobs:
-  hello_world_job:
+  fortune_teller:
     runs-on: ubuntu-latest
     name: Fortune teller
     steps:
@@ -59,7 +50,6 @@ jobs:
           repoName: crystal-ball
           issueNum: "${{ github.event.issue.number }}"
           labels: "invalid,crystall ball needed"
-
 ```
 
 ### ENV variables
@@ -68,7 +58,7 @@ Default comment message cen be changed by:
 ```
 COMMENT_MSG: "comment message (above failure reason)
 ```
-Multiple regular expressions can be used to validate issue body. Any ENV variable starting with `CRYSTAL_{NO,}MATCH_REGEX` will be used. If match exists, issue is consider as invalid and crystal ball will comment.
+Multiple regular expressions can be used to validate issue body. Any ENV variable starting with `CRYSTAL_{NO,}MATCH_REGEX` will be used. If match does/doesn't exists, issue is consider as invalid and crystal ball will comment.
 ```
 CRYSTAL_NOMATCH_REGEX_FOO: '^foo$'
 CRYSTAL_MATCH_REGEX_BAR: 'bar{4}'
@@ -78,6 +68,20 @@ Github token is required to perform actions.
 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-## LICEMSE
+---
+
+## Example
+
+How action may look like:
+
+![alt text](assets/example.png "example")
+
+### Live demo
+
+Just raise an issue with empty body [here](https://github.com/n0npax/crystal-ball/issues/new).
+
+---
+
+## LICENSE
 
 Code under [MIT license](https://opensource.org/licenses/MIT).

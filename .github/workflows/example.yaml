@@ -1,9 +1,9 @@
-name: crystall ball (from Dockerfile)
+name: crystall ball (example usa-case)
 on:
   issues:
     types: [opened, edited]
 jobs:
-  hello_world_job:
+  example:
     runs-on: ubuntu-latest
     name: Fortune teller
     steps:
