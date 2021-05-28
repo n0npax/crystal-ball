@@ -14,11 +14,11 @@ jobs:
         uses: ./ 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REXEXP_NO_EMPTY_DESC: 'description:?\s*\Z'
-          REGEXP_AT_LEAST_10_WORDS: '(\w+\s+){0,10}'
+          CRYSTAL_NOMATCH_REGEX_FOO: '^foo$'
+          CRYSTAL_MATCH_REGEX_BAR: 'bar{4}'
           #COMMENT_MSG: blah blah blah
         with:
           org: ${{ github.repository_owner }}
           repoName: crystal-ball
           issueNum: "${{ github.event.issue.number }}"
-          labels: "foo,bar,baz,qux"
+          labels: "invalid,crystall ball needed"
