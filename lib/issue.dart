@@ -54,7 +54,7 @@ class Issue extends gh.Issue {
       log.shout(e);
       rethrow;
     }
-    log.fine('Comment was added');
+    log.info('Applied labels: $labels');
   }
 
   Future<void> rmLabels(List<String> labels) async {
@@ -69,6 +69,6 @@ class Issue extends gh.Issue {
       log.shout(e);
       rethrow;
     }
-    log.fine('Comment was added');
+    log.info('Removed labels: $labels');
   }
 }

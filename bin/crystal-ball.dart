@@ -107,9 +107,10 @@ class IssueCommand extends Command {
         number: argResults![issueNumberOption]);
     await issue.init();
     final failureReason = await isValidIssue(issue);
+    final labels = argResults![labelOption];
     if (failureReason.isNotEmpty) {
-      if (!argResults![labelOption].isEmpty) {
-        await issue.addLabels(argResults![labelOption]);
+      if (!labels.isEmpty) {
+        await issue.addLabels(labels);
       }
       if (argResults![commentFlag]) {
         await issue.comment(
@@ -119,7 +120,7 @@ class IssueCommand extends Command {
         print('::set-output name=commented::false');
       }
     } else {
-      await issue.rmLabels(argResults![labelOption]);
+      await issue.rmLabels(labels);
     }
   }
 }
