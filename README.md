@@ -42,8 +42,8 @@ jobs:
         uses: n0npax/crystal-ball
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CRYSTAL_NOMATCH_REGEX_FOO: '^foo$'
-          CRYSTAL_MATCH_REGEX_BAR: 'bar{4}'
+          CRYSTAL_MATCH_REGEX_BAR: 'description:?\s*\Z'
+          CRYSTAL_NOMATCH_REGEX_FOO: '(\w+\s+){0,10}'
           # COMMENT_MSG: blah blah blah
         with:
           org: ${{ github.repository_owner }}
