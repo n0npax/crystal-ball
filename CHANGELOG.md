@@ -1,3 +1,9 @@
+## Unreleased
+### Added
+- add comment and label tests
+- update pubspec.yaml description
+- fmt check in github action
+
 ## 0.1.1 - 2021-05-29
 ### Added
 - Rename command
