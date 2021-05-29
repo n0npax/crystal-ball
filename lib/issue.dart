@@ -25,7 +25,7 @@ class Issue extends gh.Issue {
     required this.org,
     required this.repoName,
     required number,
-  })   : id = int.parse(number),
+  })  : id = int.parse(number),
         _slug = gh.RepositorySlug(org, repoName);
 
   /// Initialize instance by fetching data from GitHub
