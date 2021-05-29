@@ -42,6 +42,7 @@ class Issue extends gh.Issue {
       rethrow;
     }
 
+    labels = _issue!.labels;
     commentsCnt = _issue!.commentsCount;
     pullRequest = _issue!.pullRequest;
     body = _issue!.body;
