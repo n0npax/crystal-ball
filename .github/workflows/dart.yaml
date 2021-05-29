@@ -19,3 +19,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           dart test $(find test -type f) -r expanded
+  fmt:
+    name: fmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1.0
+      - name: fmt
+        run: |
+          dartfmt -w --set-exit-if-changed .
