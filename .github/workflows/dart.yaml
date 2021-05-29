@@ -44,16 +44,20 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CRYSTAL_MATCH_REGEX_BAR: 'description:?\s*\Z'
+          CRYSTAL_NOMATCH_REGEX_FOO: '(\w+\s+){0,10}'
       - uses: actions/upload-artifact@v2
         with:
           name: coverage.info
           path: cov_out/data
-      #- name: test
-      #  run: |
-      #    dart test $(find test -type f)
-        #env:
-        #  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: test
+        run: |
+          dart test $(find test -type f)
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CRYSTAL_MATCH_REGEX_BAR: 'description:?\s*\Z'
+          CRYSTAL_NOMATCH_REGEX_FOO: '(\w+\s+){0,10}'
   fmt:
     name: fmt
     runs-on: ubuntu-latest
