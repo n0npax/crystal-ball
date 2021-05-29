@@ -6,7 +6,7 @@ description: |
   User can provide custom regular expressions which will trigger the comment.
   Application can consume positive and negative regular expressions.
   Custom comment message can be also provided.
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/n0npax/crystal-ball
 repository: https://github.com/n0npax/crystal-ball
 
