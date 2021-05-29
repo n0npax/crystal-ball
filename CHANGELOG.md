@@ -1,4 +1,4 @@
-## Unreleased
+## 1.0.0 - 2021-05-30
 ### Added
 - add comment and label tests
 - update pubspec.yaml description
