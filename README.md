@@ -39,7 +39,7 @@ jobs:
       - name: Crystal Ball
         # rm line below if you want to apply same rules for PR description
         if: ${{ !github.event.issue.pull_request }}
-        uses: n0npax/crystal-ball@v0.1.0
+        uses: n0npax/crystal-ball@v0.1.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CRYSTAL_MATCH_REGEX_BAR: 'description:?\s*\Z'
