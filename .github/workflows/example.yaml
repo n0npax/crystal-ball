@@ -1,4 +1,4 @@
-name: crystall ball (example usa-case)
+name: crystall ball (example use-case)
 on:
   issues:
     types: [opened, edited]
