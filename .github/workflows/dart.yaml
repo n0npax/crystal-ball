@@ -52,7 +52,7 @@ jobs:
           path: cov_out/data
       - name: test
         run: |
-          dart test $(find test -type f)
+          dart test $(find test -type f) -r expanded
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
