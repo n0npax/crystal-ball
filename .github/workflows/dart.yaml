@@ -10,22 +10,50 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - uses: dart-lang/setup-dart@v1.0
+        with:
+          sdk: dev
       - name: get
         run: |
           pub get
-      - name: test
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          dart test $(find test -type f) -r expanded
-      - name: cov
-        run: |
           pub global activate coverage
-          (dart --pause-isolates-on-exit --disable-service-auth-codes --enable-vm-service=NNNN test/check.dart | tee cov.log) &
-          pub global run coverage:collect_coverage --uri=$(grep http cov.log  | awk '{print $NF}') -o coverage.json --resume-isolates
-          pub global run coverage:format_coverage --packages=.dart_tool/package_config.json -i coverage.json -l -o data
-          bash <(curl -s https://codecov.io/bash) -f data
+      - name: test & cov
+        timeout-minutes: 3
+        run: |
+          set -x
+          PORT1=9291
+          PORT2=9292
+          mkdir cov_out
+          # check
+          dart --pause-isolates-on-exit --disable-service-auth-codes --enable-vm-service=${PORT1} ./test/check.dart &
+          sleep 5
+          pub global run coverage:collect_coverage --uri=http://127.0.0.1:${PORT1}/ -t 30 -o cov_out/coverage-check.json --resume-isolates --wait-paused
+
+          # issue
+          dart --pause-isolates-on-exit --disable-service-auth-codes --enable-vm-service=${PORT2} ./test/issue.dart &
+          sleep 15
+          pub global run coverage:collect_coverage --uri=http://127.0.0.1:${PORT2}/ -t 30 -o cov_out/coverage-issue.json --resume-isolates --wait-paused
+
+          # covert and upload
+          pub global run coverage:format_coverage --verbose --packages=.dart_tool/package_config.json \
+            -i cov_out --lcov -o cov_out/data
+          tree cov_out
+          bash <(curl -s https://codecov.io/bash) -f cov_out/data
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v2
+        with:
+          name: coverage.info
+          path: cov_out/data
+      #- name: test
+      #  run: |
+      #    dart test $(find test -type f)
+        #env:
+        #  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   fmt:
     name: fmt
     runs-on: ubuntu-latest
