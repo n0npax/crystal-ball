@@ -6,9 +6,6 @@ inputs:
   issueNum:
     description: 'number of issue to check'
     required: true
-  org:
-    description: 'organization or github username'
-    required: true
   repoName:
     description: 'repository name'
   labels:
@@ -22,6 +19,5 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.issueNum }}
-    - ${{ inputs.org }}
     - ${{ inputs.repoName }}
     - ${{ inputs.labels }}

@@ -7,8 +7,7 @@ import 'package:logging/logging.dart';
 
 const regexOption = 'regex';
 const issueNumberOption = 'issueNumber';
-const orgOption = 'organization';
-const repoNameOption = 'repository';
+const repositoryOption = 'repository';
 const commentFlag = 'comment';
 const labelOption = 'label';
 
@@ -52,6 +51,18 @@ class IssueCommand extends Command {
     ;
   }
 
+  void requiredRepoArg(String? s) {
+    if (s?.isEmpty ?? true) {
+      printUsage();
+      exit(2);
+    }
+    final r = s!.split('/');
+    if (r.length != 2) {
+      printUsage();
+      exit(2);
+    }
+  }
+
   IssueCommand() {
     argParser.addOption(
       issueNumberOption,
@@ -63,20 +74,12 @@ class IssueCommand extends Command {
       callback: (s) => requiredNotEmptyArg(s),
     );
     argParser.addOption(
-      orgOption,
-      help: '(required) organization or username',
-      aliases: ['org', 'username', 'user'],
-      abbr: 'o',
-      valueHelp: 'organization or username',
-      callback: (s) => requiredNotEmptyArg(s),
-    );
-    argParser.addOption(
-      repoNameOption,
-      help: '(required) repository name',
+      repositoryOption,
+      help: '(required) repository (org/repo form)',
       aliases: ['repo'],
       abbr: 'r',
-      valueHelp: 'repository name',
-      callback: (s) => requiredNotEmptyArg(s),
+      valueHelp: 'org/repoName',
+      callback: (s) => requiredRepoArg(s),
     );
 
     // actions
@@ -99,10 +102,10 @@ class IssueCommand extends Command {
   @override
   void run() async {
     log.info('processing issue num: ${argResults?[issueNumberOption]}'
-        ' repo: ${argResults?[repoNameOption]}/${argResults?[orgOption]}');
+        ' repo: ${argResults?[repositoryOption]}');
     var issue = Issue(
-        org: argResults![orgOption],
-        repoName: argResults![repoNameOption],
+        org: argResults![repositoryOption].split('/')[0],
+        repoName: argResults![repositoryOption].split('/')[1],
         number: argResults![issueNumberOption]);
     await issue.init();
     final failureReason = await isValidIssue(issue);

@@ -46,8 +46,7 @@ jobs:
           CRYSTAL_NOMATCH_REGEX_FOO: '(\w+\s+){0,10}'
           # COMMENT_MSG: blah blah blah
         with:
-          org: ${{ github.repository_owner }}
-          repoName: crystal-ball
+          repoName: ${{ github.repository	}}
           issueNum: ${{ github.event.issue.number }}
           labels: "invalid,crystall ball needed"
 ```

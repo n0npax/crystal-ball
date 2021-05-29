@@ -18,4 +18,3 @@ dev_dependencies:
   test: ^1.17.4
   pedantic: ^1.9.0
   cider: ^0.1.0
-
