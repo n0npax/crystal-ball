@@ -1,5 +1,11 @@
 name: crystal_ball
-description: A simple tool to respond to new issue (github action core)
+description: |
+  A simple tool to respond to new issue (github action core)
+
+  Crystal ball can checks if issue in github mets established requirements.
+  User can provide custom regular expressions which will trigger the comment.
+  Application can consume positive and negative regular expressions.
+  Custom comment message can be also provided.
 version: 0.1.0
 homepage: https://github.com/n0npax/crystal-ball
 repository: https://github.com/n0npax/crystal-ball

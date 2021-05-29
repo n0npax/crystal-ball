@@ -1,6 +1,6 @@
 ## Unreleased
 ### Added
-- TODO
+- Rename command
 
 ## 0.1.0 - 2021-05-29
 ### Added

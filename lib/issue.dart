@@ -5,10 +5,17 @@ final github = gh.GitHub(auth: gh.findAuthenticationFromEnvironment());
 final log = Logger('issue');
 
 class Issue extends gh.Issue {
-  final String repoName, org;
+  /// GitHub Repository name
+  final String repoName;
+
+  /// GitHub Org name
+  final String org;
+
+  /// Github Issue ID
   @override
   final int id;
-  final slug;
+
+  final _slug;
 
   gh.Issue? _issue;
 
@@ -19,12 +26,13 @@ class Issue extends gh.Issue {
     required this.repoName,
     required number,
   })   : id = int.parse(number),
-        slug = gh.RepositorySlug(org, repoName);
+        _slug = gh.RepositorySlug(org, repoName);
 
+  /// Initialize instance by fetching data from GitHub
   Future<void> init() async {
     final _issService = gh.IssuesService(github);
     try {
-      _issue = await _issService.get(slug, id);
+      _issue = await _issService.get(_slug, id);
     } catch (e) {
       log.shout(e);
       rethrow;
@@ -35,10 +43,11 @@ class Issue extends gh.Issue {
     log.fine('Issue data was synced');
   }
 
+  /// Adds comment to the GitHub issue
   Future<void> comment(String body) async {
     final _issService = gh.IssuesService(github);
     try {
-      await _issService.createComment(slug, id, body);
+      await _issService.createComment(_slug, id, body);
     } catch (e) {
       log.shout(e);
       rethrow;
@@ -46,10 +55,11 @@ class Issue extends gh.Issue {
     log.fine('Label was added');
   }
 
+  /// Adds labels to the GitHub issue
   Future<void> addLabels(List<String> labels) async {
     final _issService = gh.IssuesService(github);
     try {
-      await _issService.addLabelsToIssue(slug, id, labels);
+      await _issService.addLabelsToIssue(_slug, id, labels);
     } catch (e) {
       log.shout(e);
       rethrow;
@@ -57,12 +67,13 @@ class Issue extends gh.Issue {
     log.info('Applied labels: $labels');
   }
 
+  /// Removes labels to the GitHub issue
   Future<void> rmLabels(List<String> labels) async {
     final _issService = gh.IssuesService(github);
     try {
       labels.forEach((element) {
         _issService
-            .removeLabelForIssue(slug, id, element)
+            .removeLabelForIssue(_slug, id, element)
             .then((value) => null);
       });
     } catch (e) {

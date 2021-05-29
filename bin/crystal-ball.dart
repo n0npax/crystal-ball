@@ -37,9 +37,10 @@ void main(List<String> args) {
         ..run(args);
 }
 
+/// Issue Command
 class IssueCommand extends Command {
   @override
-  final name = 'check';
+  final name = 'issue';
   @override
   final description = 'check if issue requires crystal ball';
 
@@ -63,6 +64,7 @@ class IssueCommand extends Command {
     }
   }
 
+  /// Command options and flags
   IssueCommand() {
     argParser.addOption(
       issueNumberOption,
@@ -99,6 +101,7 @@ class IssueCommand extends Command {
     );
   }
 
+  /// Executes command logic
   @override
   void run() async {
     log.info('processing issue num: ${argResults?[issueNumberOption]}'

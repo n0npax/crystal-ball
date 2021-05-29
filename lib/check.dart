@@ -4,6 +4,9 @@ import 'dart:io';
 
 final log = Logger('checker');
 
+/// Determines if GitHub issue is valid
+///
+/// Returns list of reasons why issue is not valid
 Future<List<String>> isValidIssue(Issue issue) async {
   // ignore: omit_local_variable_types
   List<String> reasons = [];
@@ -25,12 +28,10 @@ Future<List<String>> isValidIssue(Issue issue) async {
       }
     }
   });
-
   if (issue.body.isEmpty) {
     const emptyReason = '* Empty issue description';
     log.info(emptyReason);
     reasons.add(emptyReason);
   }
-
   return reasons;
 }
