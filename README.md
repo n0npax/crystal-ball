@@ -4,6 +4,7 @@
 ![action](https://github.com/n0npax/crystal-ball/actions/workflows/dart.yaml/badge.svg)
 ![action](https://github.com/n0npax/crystal-ball/actions/workflows/docker.yaml/badge.svg)
 ![pub](https://img.shields.io/pub/v/crystal_ball)
+[![codecov](https://codecov.io/gh/n0npax/crystal-ball/branch/main/graph/badge.svg?token=nZk2UqBQJB)](https://codecov.io/gh/n0npax/crystal-ball)
 
 # Crystal Ball
 

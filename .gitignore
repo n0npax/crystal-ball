@@ -9,3 +9,6 @@ build/
 doc/api/
 .github_token
 bin/crystal-ball.exe
+coverage.json
+data.lcov
+cov.log

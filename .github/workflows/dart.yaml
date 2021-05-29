@@ -19,6 +19,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           dart test $(find test -type f) -r expanded
+      - name: cov
+        run: |
+          pub global activate coverage
+          (dart --pause-isolates-on-exit --disable-service-auth-codes --enable-vm-service=NNNN test/check.dart | tee cov.log) &
+          pub global run coverage:collect_coverage --uri=$(grep http cov.log  | awk '{print $NF}') -o coverage.json --resume-isolates
+          pub global run coverage:format_coverage --packages=.dart_tool/package_config.json -i coverage.json -l -o data
+          bash <(curl -s https://codecov.io/bash) -f data
   fmt:
     name: fmt
     runs-on: ubuntu-latest
