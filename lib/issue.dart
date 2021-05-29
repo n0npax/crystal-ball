@@ -11,6 +11,9 @@ class Issue extends gh.Issue {
   /// GitHub Org name
   final String org;
 
+  /// GitHub issue comments count
+  int commentsCnt;
+
   /// Github Issue ID
   @override
   final int id;
@@ -26,6 +29,7 @@ class Issue extends gh.Issue {
     required this.repoName,
     required number,
   })  : id = int.parse(number),
+        commentsCnt = -1,
         _slug = gh.RepositorySlug(org, repoName);
 
   /// Initialize instance by fetching data from GitHub
@@ -38,6 +42,7 @@ class Issue extends gh.Issue {
       rethrow;
     }
 
+    commentsCnt = _issue!.commentsCount;
     pullRequest = _issue!.pullRequest;
     body = _issue!.body;
     log.fine('Issue data was synced');
