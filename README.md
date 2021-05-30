@@ -54,7 +54,7 @@ jobs:
 
 ### ENV variables
 
-Default comment message cen be changed by:
+Default comment message can be changed by:
 ```yaml
 COMMENT_MSG: "comment message (above failure reason)
 ```
