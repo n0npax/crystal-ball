@@ -22,6 +22,7 @@ jobs:
       - name: test & cov
         timeout-minutes: 3
         run: |
+          # workaround as per: https://github.com/codecov/dart/issues/25
           set -x
           PORT1=9291
           PORT2=9292
