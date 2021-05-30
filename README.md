@@ -8,16 +8,16 @@
 
 # Crystal Ball
 
-Crystal ball is an easy app to check if github issue can be consider as invalid or dummy. It's also a `GitHub` action which simplify usage.
+Crystal ball is an easy app to check if github an issue can be consider as invalid or dummy. It's also a `GitHub` action which simplify usage.
 
 ## Problem to solve
 
 From time to time we are expecting issues which are not actionable.
 
-Empty issue body is an example of unactionable issue.
-Simillarly if issue template with checklist is given but no field is selected, it's possible to consider an issue as not ready to be triaged.
+An empty issue body is an example of unactionable issue.
+Simillarly if an issue template with a checklist is given but no field is selected it's possible to consider an issue as not ready to be triaged.
 
-The `Crystal Ball` action will check issue description and respond to it base on predefined checks or customer provided regular expressions
+The `Crystal Ball` action will check an issue description and responds to it based on predefined checks or customer provided regular expressions.
 
 ---
 
@@ -58,7 +58,7 @@ Default comment message can be changed by:
 ```yaml
 COMMENT_MSG: "comment message (above failure reason)
 ```
-Multiple regular expressions can be used to validate issue body. Any ENV variable starting with `CRYSTAL_{NO,}MATCH_REGEX` will be used. If match does/doesn't exists, issue is consider as invalid and crystal ball will comment.
+Multiple regular expressions can be used to validate an issue body. Any ENV variable starting with `CRYSTAL_{NO,}MATCH_REGEX` will be used. If match does/doesn't exists, the issue is considered as invalid and crystal ball will comment it.
 ```yaml
 CRYSTAL_NOMATCH_REGEX_FOO: '^foo$'
 CRYSTAL_MATCH_REGEX_BAR: 'bar{4}'
@@ -72,16 +72,16 @@ GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 ## Example
 
-How action may look like:
+How the action may look like:
 
 ![alt text](assets/example.png "example")
 
 ### Live demo
 
-Just raise an issue with empty body [here](https://github.com/n0npax/crystal-ball/issues/new).
+Just raise an issue with an empty body [here](https://github.com/n0npax/crystal-ball/issues/new).
 
 ---
 
 ## LICENSE
 
-Code under [MIT license](https://opensource.org/licenses/MIT).
+Code under the [MIT license](https://opensource.org/licenses/MIT).
