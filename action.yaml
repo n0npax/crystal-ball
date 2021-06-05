@@ -1,5 +1,5 @@
-name: 'Crystal ball'
-description: 'Action to react on empty or not well prepared issue'
+name: 'Crystal Ball Responder'
+description: 'Action to react on empty or invalid issue'
 author: n0npax
 branding:
   icon: 'octagon'  
