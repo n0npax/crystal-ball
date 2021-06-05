@@ -1,7 +1,10 @@
 name: 'Crystal ball'
 description: 'Action to react on empty or not well prepared issue'
 author: n0npax
-branding: octagon
+branding:
+  icon: 'octagon'  
+  color: 'green'
+
 inputs:
   issueNum:
     description: 'number of issue to check'
